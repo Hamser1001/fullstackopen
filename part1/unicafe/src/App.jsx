@@ -5,6 +5,24 @@ const marginStyle = {
   margin: "5px",
 };
 
+const Statistics = (props) => {
+  return (
+    <div>
+      <h2 style={{ marginTop: "15px" }}>statistics</h2>
+      <p>good {props.good}</p>
+      <p>neutral {props.neutral}</p>
+      <p>bad {props.bad}</p>
+      <p>all {props.total}</p>
+      <p>
+        average {props.total === 0 ? 0 : (props.good - props.bad) / props.total}
+      </p>
+      <p>
+        positive {props.total === 0 ? 0 : (props.good / props.total) * 100}%
+      </p>
+    </div>
+  );
+};
+
 const App = () => {
   // save clicks of each button to its own state
   const [good, setGood] = useState(0);
@@ -26,15 +44,7 @@ const App = () => {
         bad
       </button>
 
-      <div>
-        <h2 style={{ marginTop: "15px" }}>statistics</h2>
-        <p>good {good}</p>
-        <p>neutral {neutral}</p>
-        <p>bad {bad}</p>
-        <p>all {total}</p>
-        <p>average {total === 0 ? 0 : (good - bad) / total}</p>
-        <p>positive {total === 0 ? 0 : (good / total) * 100}%</p>
-      </div>
+      <Statistics good={good} neutral={neutral} bad={bad} total={total} />
     </div>
   );
 };
