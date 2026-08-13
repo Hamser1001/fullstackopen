@@ -43,8 +43,10 @@ const App = () => {
       <button style={marginStyle} onClick={() => setBad(bad + 1)}>
         bad
       </button>
-
-      <Statistics good={good} neutral={neutral} bad={bad} total={total} />
+      {total === 0 && <p>No feedback given</p>}
+      {total > 0 && (
+        <Statistics good={good} neutral={neutral} bad={bad} total={total} />
+      )}
     </div>
   );
 };
