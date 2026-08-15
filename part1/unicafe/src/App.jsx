@@ -7,9 +7,10 @@ const marginStyle = {
 
 const StatisticLine = (props) => {
   return (
-    <p>
-      {props.text} {props.value}
-    </p>
+    <tr>
+      <td>{props.text}</td>
+      <td>{props.value}</td>
+    </tr>
   );
 };
 
@@ -17,29 +18,24 @@ const Statistics = (props) => {
   return (
     <div>
       <h2 style={{ marginTop: "15px" }}>statistics</h2>
-      <StatisticLine text="good" value={props.good} />
-      <StatisticLine text="neutral" value={props.neutral} />
-      <StatisticLine text="bad" value={props.bad} />
-      <StatisticLine text="all" value={props.total} />
-      <StatisticLine
-        text="average"
-        value={props.total === 0 ? 0 : (props.good - props.bad) / props.total}
-      />
-      <StatisticLine
-        text="positive"
-        value={`${props.total === 0 ? 0 : (props.good / props.total) * 100} %`}
-      />
-
-      {/* <p>good {props.good}</p>
-      <p>neutral {props.neutral}</p>
-      <p>bad {props.bad}</p>
-      <p>all {props.total}</p>
-      <p>
-        average {props.total === 0 ? 0 : (props.good - props.bad) / props.total}
-      </p>
-      <p>
-        positive {props.total === 0 ? 0 : (props.good / props.total) * 100} %
-      </p> */}
+      <table>
+        <tbody>
+          <StatisticLine text="good" value={props.good} />
+          <StatisticLine text="neutral" value={props.neutral} />
+          <StatisticLine text="bad" value={props.bad} />
+          <StatisticLine text="all" value={props.total} />
+          <StatisticLine
+            text="average"
+            value={
+              props.total === 0 ? 0 : (props.good - props.bad) / props.total
+            }
+          />
+          <StatisticLine
+            text="positive"
+            value={`${props.total === 0 ? 0 : (props.good / props.total) * 100} %`}
+          />
+        </tbody>
+      </table>
     </div>
   );
 };
@@ -66,16 +62,6 @@ const App = () => {
       <Button onClick={() => setGood(good + 1)} text="good" />
       <Button onClick={() => setNeutral(neutral + 1)} text="neutral" />
       <Button onClick={() => setBad(bad + 1)} text="bad" />
-
-      {/* <button style={marginStyle} onClick={() => setGood(good + 1)}>
-        good
-      </button>
-      <button style={marginStyle} onClick={() => setNeutral(neutral + 1)}>
-        neutral
-      </button>
-      <button style={marginStyle} onClick={() => setBad(bad + 1)}>
-        bad
-      </button> */}
 
       {total === 0 && <p>No feedback given</p>}
       {total > 0 && (
