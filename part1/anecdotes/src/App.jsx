@@ -17,6 +17,7 @@ const App = () => {
   const [votes, setVotes] = useState({});
 
   console.log("the selected anecdote", selected);
+  console.log("the votes", votes);
 
   const voteHandler = () => {
     const copy = { ...votes };
@@ -26,30 +27,50 @@ const App = () => {
       copy[selected] = 1;
     }
     setVotes(copy);
-    console.log(copy);
+    // console.log(copy);
   };
 
-  const generateRandomAnecdote = () => {
+  const generateRandomAnecdoteIndex = () => {
     let num = Math.floor(Math.random() * anecdotes.length);
     setSelected(num);
   };
 
+  const mostVotesAnecdote = () => {
+    let maxValue = 0;
+    let maxKey = null;
+
+    for (let key in votes) {
+      if (votes[key] > maxValue) {
+        maxValue = votes[key];
+        maxKey = key;
+      }
+    }
+    return maxKey;
+  };
+  const topIndex = mostVotesAnecdote();
   return (
     <div>
       <br />
+      <h1>Anecdote of the day</h1>
       {anecdotes[selected]}
       <br />
-      <button
-        onClick={voteHandler}
-        style={{
-          marginRight: "10px",
-        }}
-      >
+      <button onClick={voteHandler} style={{ margin: "15px" }}>
         vote
       </button>
-      <button onClick={generateRandomAnecdote}>next anecdote</button>
+      <button onClick={generateRandomAnecdoteIndex} style={{ margin: "15px" }}>
+        next anecdote
+      </button>
       <br />
       <p>has {votes[selected] ? votes[selected] : "0"} votes</p>
+      <h1>Anecdote with the most votes</h1>
+      {topIndex !== null ? (
+        <>
+          <p>{anecdotes[topIndex]}</p>
+          <p>has {votes[topIndex]} votes</p>
+        </>
+      ) : (
+        <p>No one had most votes yet</p>
+      )}
     </div>
   );
 };
