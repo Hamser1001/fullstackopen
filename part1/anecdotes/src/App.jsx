@@ -14,6 +14,20 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState({});
+
+  console.log("the selected anecdote", selected);
+
+  const voteHandler = () => {
+    const copy = { ...votes };
+    if (copy[selected]) {
+      copy[selected] += 1;
+    } else {
+      copy[selected] = 1;
+    }
+    setVotes(copy);
+    console.log(copy);
+  };
 
   const generateRandomAnecdote = () => {
     let num = Math.floor(Math.random() * anecdotes.length);
@@ -22,9 +36,20 @@ const App = () => {
 
   return (
     <div>
+      <br />
       {anecdotes[selected]}
       <br />
+      <button
+        onClick={voteHandler}
+        style={{
+          marginRight: "10px",
+        }}
+      >
+        vote
+      </button>
       <button onClick={generateRandomAnecdote}>next anecdote</button>
+      <br />
+      <p>has {votes[selected] ? votes[selected] : "0"} votes</p>
     </div>
   );
 };
