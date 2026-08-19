@@ -2,16 +2,6 @@ import { useState } from "react";
 
 const Header = ({ course }) => <h1>{course.name}</h1>;
 
-// const Content = ({ course }) => {
-//   return (
-//     <div>
-//       <Part name={course.parts[0].name} exercise={course.parts[0].exercises} />
-//       <Part name={course.parts[1].name} exercise={course.parts[1].exercises} />
-//       <Part name={course.parts[2].name} exercise={course.parts[2].exercises} />
-//     </div>
-//   );
-// };
-
 const Content = ({ course }) => {
   return (
     <div>
@@ -22,10 +12,10 @@ const Content = ({ course }) => {
   );
 };
 
-const Part = ({ name, exercise, id }) => {
+const Part = ({ name, exercise }) => {
   return (
     <>
-      <p id={id}>
+      <p>
         {name} {exercise}
       </p>
     </>
@@ -65,7 +55,6 @@ const App = () => {
   };
 
   console.log("App Working...");
-  console.log(course.parts);
 
   return <Course course={course} />;
 };
