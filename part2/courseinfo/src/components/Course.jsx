@@ -21,12 +21,10 @@ const Part = ({ name, exercise }) => {
 };
 
 const Total = ({ parts }) => {
-  console.log(parts);
   const total = parts.reduce((ex, part) => {
     return ex + part.exercises;
   }, 0);
 
-  console.log("total", total);
   return <p style={{ fontWeight: "bold" }}>total of {total} exercises</p>;
 };
 
