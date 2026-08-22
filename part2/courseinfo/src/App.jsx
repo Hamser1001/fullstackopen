@@ -27,8 +27,19 @@ const Course = ({ course }) => {
     <div>
       <Header course={course} />
       <Content course={course} />
+      <Total course={course} />
     </div>
   );
+};
+
+const Total = ({ course }) => {
+  const total =
+    course.parts[0].exercises +
+    course.parts[1].exercises +
+    course.parts[2].exercises;
+  console.log("total", total);
+
+  return <p style={{ fontWeight: "bold" }}>total of {total} exercises</p>;
 };
 
 const App = () => {
