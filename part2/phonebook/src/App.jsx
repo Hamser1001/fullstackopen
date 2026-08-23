@@ -6,15 +6,18 @@ const App = () => {
   const [newName, setNewName] = useState("");
 
   const handleInputChange = (event) => setNewName(event.target.value);
+
   const handleAddBtn = (event) => {
     event.preventDefault();
-    console.log(persons);
-    persons.map((person) => {
-      if (newName === person.name) {
-        alert(`${newName} is already added to phonebook`);
-      }
-    });
     console.log("Clicked Button");
+
+    console.log(persons);
+    const nameExists = persons.some((person) => person.name === newName);
+
+    if (nameExists) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
   };
 
   return (
