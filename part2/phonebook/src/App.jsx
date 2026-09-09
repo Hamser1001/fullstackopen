@@ -23,9 +23,7 @@ const App = () => {
 
   const handleAddBtn = (event) => {
     event.preventDefault();
-    console.log("Clicked Button");
 
-    console.log(persons);
     const nameExists = persons.some((person) => person.name === newName);
 
     if (nameExists) {
@@ -33,13 +31,15 @@ const App = () => {
       return;
     }
 
-    setPersons(
-      persons.concat({
-        name: newName,
-        number: newNumber,
-        id: persons.length + 1,
-      }),
-    );
+    const newPerson = {
+      name: newName,
+      number: newNumber,
+    };
+
+    axios.post("http://localhost:3001/persons", newPerson).then((response) => {
+      setPersons(persons.concat(response.data));
+    });
+
     setNewName("");
     setNewNumber("");
   };
