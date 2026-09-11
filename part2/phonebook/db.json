@@ -36,7 +36,9 @@
       "id": "5BFnUFIuHfU"
     },
     {
-      "id": "qK9CCFica8s"
+      "name": "ahmad",
+      "number": "454548787",
+      "id": "K1TWSWDIBRU"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

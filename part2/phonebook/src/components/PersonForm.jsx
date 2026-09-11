@@ -1,4 +1,4 @@
-const PersonForm = ({ nameHandle, numberHandle, buttonClick, newName }) => {
+const PersonForm = ({ nameHandle, numberHandle, buttonClick }) => {
   return (
     <form>
       <div>
@@ -12,7 +12,6 @@ const PersonForm = ({ nameHandle, numberHandle, buttonClick, newName }) => {
           add
         </button>
       </div>
-      <div>debug: {newName}</div>
     </form>
   );
 };
