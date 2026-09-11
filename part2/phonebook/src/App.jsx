@@ -48,11 +48,30 @@ const App = () => {
     setSearchTerm(event.target.value);
   };
 
+  const handleDeleteBtn = (id) => {
+    const personToDelete = persons.find((p) => p.id === id);
+
+    if (!personToDelete) return;
+
+    if (window.confirm(`deelete ${personToDelete.name}?`)) {
+      personsService
+        .deletePerson(id)
+        .then(() => {
+          setPersons(persons.filter((person) => person.id !== id));
+        })
+        .catch((error) => {
+          alert(
+            `the person '${personToDelete.name}' was already deleted`,
+          );
+          setPersons(persons.filter((person) => person.id !== id));
+        });
+    }
+  };
+
   return (
     <div>
       <br />
       <h2>Phonebook</h2>
-
       <Filter value={searchTerm} onChange={filterSearch} />
       <br />
       <h2>Add a new</h2>
@@ -61,10 +80,12 @@ const App = () => {
         numberHandle={handleNumberChange}
         buttonClick={handleAddBtn}
       />
-
       <h2>Numbers</h2>
-
-      <Persons persons={persons} searchTerm={searchTerm} />
+      <Persons
+        persons={persons}
+        searchTerm={searchTerm}
+        deleteBtn={handleDeleteBtn}
+      />
     </div>
   );
 };
