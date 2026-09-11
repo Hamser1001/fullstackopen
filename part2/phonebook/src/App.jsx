@@ -14,9 +14,8 @@ const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    personsService.getAll().then((response) => {
-      console.log(response.data);
-      setPersons(response.data);
+    personsService.getAll().then((initialPersons) => {
+      setPersons(initialPersons);
     });
   }, []);
 
@@ -38,12 +37,11 @@ const App = () => {
       number: newNumber,
     };
 
-    axios.post("http://localhost:3001/persons", newPerson).then((response) => {
-      setPersons(persons.concat(response.data));
+    personsService.addPerson(newPerson).then((returnedPerson) => {
+      setPersons(persons.concat(returnedPerson));
+      setNewName("");
+      setNewNumber("");
     });
-
-    setNewName("");
-    setNewNumber("");
   };
 
   const filterSearch = (event) => {
