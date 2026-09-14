@@ -25,22 +25,40 @@ const App = () => {
   const handleAddBtn = (event) => {
     event.preventDefault();
 
-    const nameExists = persons.find((person) => person.name === newName);
+    const existingPerson = persons.find((person) => person.name === newName);
 
     const newPerson = {
       name: newName,
       number: newNumber,
     };
 
-    if (nameExists) {
+    if (existingPerson) {
       if (
         window.confirm(
           `${newName} is already added to phonebook, replace the old number with new one?`,
         )
       ) {
-      }
+        const changedPerson = { ...existingPerson, number: newNumber };
+        personsService
+          .update(existingPerson.id, changedPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== existingPerson.id ? person : returnedPerson,
+              ),
+            );
+            setNewName("");
+            setNewNumber("");
+          })
+          .catch((error) => {
+            alert(`the person '${existingPerson.name}' was already deleted`);
+            setPersons(
+              persons.filter((person) => person.id !== existingPerson.id),
+            );
+          });
 
-      return;
+        return;
+      }
     }
 
     personsService.addPerson(newPerson).then((returnedPerson) => {
@@ -59,7 +77,7 @@ const App = () => {
 
     if (!personToDelete) return;
 
-    if (window.confirm(`deelete ${personToDelete.name}?`)) {
+    if (window.confirm(`delete ${personToDelete.name}?`)) {
       personsService
         .deletePerson(id)
         .then(() => {
