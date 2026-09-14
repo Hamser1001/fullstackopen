@@ -25,17 +25,23 @@ const App = () => {
   const handleAddBtn = (event) => {
     event.preventDefault();
 
-    const nameExists = persons.some((person) => person.name === newName);
-
-    if (nameExists) {
-      alert(`${newName} is already added to phonebook`);
-      return;
-    }
+    const nameExists = persons.find((person) => person.name === newName);
 
     const newPerson = {
       name: newName,
       number: newNumber,
     };
+
+    if (nameExists) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with new one?`,
+        )
+      ) {
+      }
+
+      return;
+    }
 
     personsService.addPerson(newPerson).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson));
@@ -60,9 +66,7 @@ const App = () => {
           setPersons(persons.filter((person) => person.id !== id));
         })
         .catch((error) => {
-          alert(
-            `the person '${personToDelete.name}' was already deleted`,
-          );
+          alert(`the person '${personToDelete.name}' was already deleted`);
           setPersons(persons.filter((person) => person.id !== id));
         });
     }
