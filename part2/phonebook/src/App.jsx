@@ -1,10 +1,11 @@
-import "./App.css";
+import "./index.css";
 import { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import Persons from "./components/Persons";
 import PersonForm from "./components/PersonForm";
 import axios from "axios";
 import personsService from "./services/personsModule";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
@@ -12,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState("");
 
   useEffect(() => {
     personsService.getAll().then((initialPersons) => {
@@ -47,6 +49,11 @@ const App = () => {
                 person.id !== existingPerson.id ? person : returnedPerson,
               ),
             );
+            setNotificationMessage(`updated number for ${returnedPerson.name}`);
+
+            setTimeout(() => {
+              setNotificationMessage(null);
+            }, 3000);
             setNewName("");
             setNewNumber("");
           })
@@ -63,6 +70,13 @@ const App = () => {
 
     personsService.addPerson(newPerson).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson));
+
+      setNotificationMessage(`added ${returnedPerson.name}`);
+
+      setTimeout(() => {
+        setNotificationMessage(null);
+      }, 3000);
+
       setNewName("");
       setNewNumber("");
     });
@@ -94,6 +108,7 @@ const App = () => {
     <div>
       <br />
       <h2>Phonebook</h2>
+      <Notification message={notificationMessage} />
       <Filter value={searchTerm} onChange={filterSearch} />
       <br />
       <h2>Add a new</h2>
