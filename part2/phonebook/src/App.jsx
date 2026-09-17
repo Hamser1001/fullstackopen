@@ -14,6 +14,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [notificationMessage, setNotificationMessage] = useState("");
+  const [notificationType, setNotificationType] = useState("success");
 
   useEffect(() => {
     personsService.getAll().then((initialPersons) => {
@@ -49,6 +50,8 @@ const App = () => {
                 person.id !== existingPerson.id ? person : returnedPerson,
               ),
             );
+
+            setNotificationType("success");
             setNotificationMessage(`updated number for ${returnedPerson.name}`);
 
             setTimeout(() => {
@@ -58,7 +61,15 @@ const App = () => {
             setNewNumber("");
           })
           .catch((error) => {
-            alert(`the person '${existingPerson.name}' was already deleted`);
+            setNotificationType("error");
+            setNotificationMessage(
+              `Information of '${existingPerson.name}' has already been removed from the server`,
+            );
+
+            setTimeout(() => {
+              setNotificationMessage(null);
+            }, 3000);
+
             setPersons(
               persons.filter((person) => person.id !== existingPerson.id),
             );
@@ -70,7 +81,7 @@ const App = () => {
 
     personsService.addPerson(newPerson).then((returnedPerson) => {
       setPersons(persons.concat(returnedPerson));
-
+      setNotificationType("success");
       setNotificationMessage(`added ${returnedPerson.name}`);
 
       setTimeout(() => {
@@ -108,7 +119,7 @@ const App = () => {
     <div>
       <br />
       <h2>Phonebook</h2>
-      <Notification message={notificationMessage} />
+      <Notification message={notificationMessage} type={notificationType} />
       <Filter value={searchTerm} onChange={filterSearch} />
       <br />
       <h2>Add a new</h2>

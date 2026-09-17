@@ -14,31 +14,6 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": "4"
-    },
-    {
-      "name": "Hamza Serhani",
-      "number": "39-44-48878787",
-      "id": "0W7pfPlYlhM"
-    },
-    {
-      "name": "Hamza Serbani",
-      "number": "39-44-5323547",
-      "id": "3SYOAveaNaA"
-    },
-    {
-      "name": "Ahmad",
-      "number": "79-23-6423127",
-      "id": "WLkuEJ7sWLQ"
-    },
-    {
-      "name": "Jamal",
-      "number": "5323523",
-      "id": "OtafGx3qsrg"
-    },
-    {
-      "name": "hamza",
-      "number": "01212454548787",
-      "id": "zByfcFCAEbo"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
