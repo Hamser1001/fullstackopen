@@ -7,6 +7,7 @@ const App = () => {
   const [countries, setCountries] = useState([]);
   const [errorMessage, setErrorMessage] = useState(null);
   const [country, setCountry] = useState(null);
+  const [buttonsStates, setButtonsStates] = useState({});
 
   useEffect(() => {
     console.log("effect run");
@@ -66,12 +67,25 @@ const App = () => {
   }, [value]);
 
   const handleChange = (event) => {
+    console.log("search happened");
+    console.log("button states Before", buttonsStates);
     setValue(event.target.value);
+    setButtonsStates({});
+    console.log("button states After", buttonsStates);
+    setCountry(null);
   };
 
   const onSearch = (event) => {
     event.preventDefault();
-    // setCountry(value);
+  };
+
+  const handleButtonClick = (index) => {
+    setButtonsStates((prevState) => {
+      if (prevState[index]) {
+        return {};
+      }
+      return { [index]: true };
+    });
   };
 
   return (
@@ -81,8 +95,31 @@ const App = () => {
       </form>
       {countries &&
         countries.map((country, index) => {
+          console.log("the country from the map", country.name.common);
           return (
-            countries.length > 1 && <p key={index}>{country.name.common}</p>
+            countries.length > 1 && (
+              <div key={index}>
+                <p
+                  style={{
+                    display: "inline",
+                  }}
+                >
+                  {country.name.common}
+                </p>
+                <button
+                  style={{
+                    display: "inline",
+                    marginLeft: "5px",
+                  }}
+                  onClick={() => handleButtonClick(index)}
+                >
+                  {buttonsStates[index] ? "Hide" : "Show"}
+                </button>
+                {buttonsStates[index] && (
+                  <CountryInfo country={country.name.common} />
+                )}
+              </div>
+            )
           );
         })}
       {countries.length === 1 && <CountryInfo country={country.name.common} />}
