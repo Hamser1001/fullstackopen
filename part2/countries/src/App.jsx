@@ -9,6 +9,9 @@ const App = () => {
   const [country, setCountry] = useState(null);
   const [buttonsStates, setButtonsStates] = useState({});
 
+  // the ceather part
+  // const key = import.meta.env.VITE_WEATHER_API_KEY;
+  // const link = `https://api.openweathermap.org/data/4.0/onecall/current?lat={lat}&lon={lon}&appid={${key}}`;
   useEffect(() => {
     console.log("effect run");
     // console.log("the value: ", value);
@@ -67,11 +70,8 @@ const App = () => {
   }, [value]);
 
   const handleChange = (event) => {
-    console.log("search happened");
-    console.log("button states Before", buttonsStates);
     setValue(event.target.value);
     setButtonsStates({});
-    console.log("button states After", buttonsStates);
     setCountry(null);
   };
 
@@ -116,13 +116,15 @@ const App = () => {
                   {buttonsStates[index] ? "Hide" : "Show"}
                 </button>
                 {buttonsStates[index] && (
-                  <CountryInfo country={country.name.common} />
+                  <CountryInfo country={country?.name?.common} />
                 )}
               </div>
             )
           );
         })}
-      {countries.length === 1 && <CountryInfo country={country.name.common} />}
+      {countries.length === 1 && (
+        <CountryInfo country={country?.name?.common} />
+      )}
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );

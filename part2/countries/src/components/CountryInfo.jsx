@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import WeatherComponent from "./WeatherComponent";
 
 const CountryInfo = ({ country }) => {
   const [name, setName] = useState("");
@@ -28,7 +29,27 @@ const CountryInfo = ({ country }) => {
       } catch (err) {}
     };
 
+    // const fetchCapitalCurrentDetails = (city) => {
+    //   // The Weather Section
+    //   console.log("the city is", city);
+    //   const key = import.meta.env.VITE_WEATHER_API_KEY;
+    //   try {
+    //     axios
+    //       .get(
+    //         `https://api.openweathermap.org/data/2.5/weather?q=${capitals[0]}&appid=${key}&units=metric`,
+    //       )
+    //       .then((response) => {
+    //         response.json();
+    //       })
+    //       .then((data) => {
+    //         console.log("the data city", data);
+    //       });
+    //   } catch (error) {
+    //     console.log("error", error);
+    //   }
+    // };
     fetchCountryDetails();
+    // fetchCapitalCurrentDetails(capitals[0]);
   }, [country]);
 
   return (
@@ -52,6 +73,7 @@ const CountryInfo = ({ country }) => {
         }}
         loading="lazy"
       />
+      <WeatherComponent city={capitals[0]} />
     </>
   );
 };
