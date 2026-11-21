@@ -3,6 +3,8 @@ const express = require("express")
 const app = express()
 const PORT = 3001
 
+app.use(express.json())
+
 let persons = [
     {
         id: "1",
@@ -62,6 +64,29 @@ app.delete("/api/persons/:id", (req, res) => {
     } else {
         res.status(404).end()
     }
+})
+
+
+// function for generate the last id number 
+const generateId = () => {
+    return String(Math.floor(Math.random() * 1000000))
+}
+
+app.post("/api/persons/", (req, res) => {
+    const body = req.body
+
+    if (!body.name || !body.number) {
+        return res.status(400).json({ error: "Content Missing" })
+    }
+
+    const person = {
+        id: generateId(),
+        name: body.name,
+        number: body.number
+    }
+
+    persons = persons.concat(person)
+    res.status(201).json(person)
 })
 
 app.listen(PORT, () => {
