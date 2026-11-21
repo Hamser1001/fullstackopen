@@ -9,9 +9,7 @@ const App = () => {
   const [country, setCountry] = useState(null);
   const [buttonsStates, setButtonsStates] = useState({});
 
-  // the ceather part
-  // const key = import.meta.env.VITE_WEATHER_API_KEY;
-  // const link = `https://api.openweathermap.org/data/4.0/onecall/current?lat={lat}&lon={lon}&appid={${key}}`;
+  
   useEffect(() => {
     console.log("effect run");
     // console.log("the value: ", value);
